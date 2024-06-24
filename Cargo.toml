@@ -1,0 +1,22 @@
+[package]
+name = "dictgen"
+version = "0.3.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+itertools = "0.13.0"
+regex = "1.10.5"
+serde = { version = "1.0.203", features = ["derive"] }
+clap = { version = "4.5.7", features = ["derive"] }
+toml = "0.8.14"
+log = "0.4.21"
+
+
+
+[profile.release]
+lto = true
+opt-level = "s"
+strip = true
+panic = "abort"

@@ -5,6 +5,7 @@
 /target
 Cargo.lock
 
+!Cargo.toml
 *.toml
 /*.txt
 
