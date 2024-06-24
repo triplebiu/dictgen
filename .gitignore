@@ -1,0 +1,12 @@
+.idea
+.vscode
+
+
+/target
+Cargo.lock
+
+*.toml
+/*.txt
+
+
+.DS_Store
