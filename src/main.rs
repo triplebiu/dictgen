@@ -3,6 +3,7 @@ use std::{fs, io};
 use std::fs::File;
 use std::io::Write;
 use std::path::{ PathBuf};
+use std::process::exit;
 use std::time::Instant;
 use serde::{Deserialize, Serialize};
 use clap::{ Parser};
@@ -113,7 +114,8 @@ fn main() {
     if cli.config.is_some() {
         let configfile = cli.config.unwrap();
         if !configfile.exists() {
-            panic!("File {} is NOT exist. ",configfile.to_string_lossy());
+            println!("File {} is NOT exist. ",configfile.to_string_lossy());
+            exit(1)
         } else {
             let c = fs::read_to_string(configfile).expect("Failed to read config");
             let mut conf:DgConfig = toml::from_str(&c).expect("Failed to parse toml format config");
@@ -122,7 +124,8 @@ fn main() {
             }
 
             if conf.output.clone().unwrap_or(PathBuf::new()).exists() && !cli.overwrite {
-                panic!("Output file ({}) already exist.",conf.output.unwrap_or(PathBuf::new()).display())
+                println!("Output file ({}) already exist.",conf.output.unwrap_or(PathBuf::new()).display());
+                exit(2)
             }
 
             // 元素出重
@@ -148,7 +151,8 @@ fn main() {
     if cli.example.is_some(){
         let examplefile = cli.example.unwrap();
         if examplefile.exists() && !cli.overwrite {
-            panic!("Example file {} already exist.",examplefile.to_string_lossy());
+            println!("Example file {} already exist.",examplefile.to_string_lossy());
+            exit(3);
         } else {
             create_example(examplefile);
         }
